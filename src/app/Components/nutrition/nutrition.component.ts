@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RootObject } from 'src/app/Models/Test';
 // import { main } from 'src/app/Models/Main';
-import { RootObject } from '../../Models/NutritionModel';
 import { NutritionServiceService } from '../../Services/nutrition-service.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-nutrition',
@@ -10,24 +12,27 @@ import { NutritionServiceService } from '../../Services/nutrition-service.servic
   styleUrls: ['./nutrition.component.scss']
 })
 export class NutritionComponent implements OnInit {
-  RootObject: RootObject[]= [];
+
+  RootObject: RootObject[] = [];
   NutritionForm! : FormGroup;
-  invalidLogin! : boolean;
-  // RootObjectval = Object.values(this.RootObject);
+  invalidData! : boolean;
+  loading = false;
 
-  // Nutriattion = Object.values(this.RootObject);
-
-  constructor(public NutritionServiceService:NutritionServiceService, fb : FormBuilder) {
+  constructor(public NutritionServiceService:NutritionServiceService, fb : FormBuilder, private router: Router, private SpinnerService: NgxSpinnerService) {
     this.NutritionForm = fb.group({
       Inger : ['',
       [
        Validators.required,
        Validators.minLength(3)]
-      ]
+      ],
+      IsCooking:['',Validators.required]
     });
    }
    get Inger(){
     return this.NutritionForm.get('Inger')?.value;
+  }
+   get IsCooking(){
+    return this.NutritionForm.get('IsCooking')?.value;
   }
   get f()
   {
@@ -35,13 +40,33 @@ export class NutritionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetData();
+    // this.GetData();
   }
-GetData(){
-  this.NutritionServiceService.GetAllNutrition('cooking',this.Inger).subscribe(data => {
-    this.RootObject = data;
-    console.log(this.RootObject);
-  });
+
+  GetData(){
+    if (this.NutritionForm.controls != null){
+      this.SpinnerService.show();
+      this.NutritionServiceService.getAllData(this.IsCooking,this.Inger).subscribe((data:any) => {
+        this.loading = true;
+        this.RootObject = [data];
+        this.SpinnerService.hide();
+        console.log(data);
+      });
+    }
+    else {
+      this.loading = false
+      this.SpinnerService.hide();
+      this.NutritionForm.setErrors({
+      invalidData : true,
+    })
+    }
 }
 
+
+NewRecipe(){
+  let currentUrl = this.router.url;
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+  });
+}
 }

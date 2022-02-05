@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { RootObject } from '../Models/NutritionModel';
+import { RootObject } from '../Models/Test';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +28,20 @@ export class NutritionServiceService {
     );
   }
 
+  getAllData(nutrition:any, inger:any) : Observable<RootObject[]> {
 
-
-  // Handle API errors
+    return this.httpClient.get<RootObject[]>(this.apiUrlTable + '&' + 'nutrition-type=' + nutrition + '&' + 'ingr=' + inger )
+    .pipe(
+      map((response: RootObject[]) => {
+        return response as RootObject[];
+      }),
+      catchError((err, caught) => {
+        console.error(err);
+        throw err;
+      }
+      )
+    )
+}
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

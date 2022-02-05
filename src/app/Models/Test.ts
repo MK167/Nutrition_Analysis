@@ -1,5 +1,18 @@
+// import { TotalDaily, TotalNutrients, TotalNutrientsKCal } from "./NutritionModel";
 
- export  interface ENERCKCAL {
+export interface RootObject  {
+  uri: string;
+  calories: any;
+  totalWeight: number;
+  dietLabels: string[];
+  healthLabels: string[];
+  cautions: any[];
+  totalNutrients: TotalNutrients;
+  totalDaily: TotalDaily;
+  totalNutrientsKCal: TotalNutrientsKCal;
+}
+
+  export interface ENERCKCAL {
       label: string;
       quantity: number;
       unit: string;
@@ -30,6 +43,18 @@
   }
 
   export interface CHOCDF {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface FIBTG {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface SUGAR {
       label: string;
       quantity: number;
       unit: string;
@@ -84,6 +109,12 @@
   }
 
   export interface P {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface VITARAE {
       label: string;
       quantity: number;
       unit: string;
@@ -149,6 +180,18 @@
       unit: string;
   }
 
+  export interface TOCPHA {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface VITK1 {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
   export interface WATER {
       label: string;
       quantity: number;
@@ -162,6 +205,8 @@
       FAMS: FAMS;
       FAPU: FAPU;
       CHOCDF: CHOCDF;
+      FIBTG: FIBTG;
+      SUGAR: SUGAR;
       PROCNT: PROCNT;
       CHOLE: CHOLE;
       NA: NA;
@@ -171,6 +216,7 @@
       FE: FE;
       ZN: ZN;
       P: P;
+      VITA_RAE: VITARAE;
       VITC: VITC;
       THIA: THIA;
       RIBF: RIBF;
@@ -181,6 +227,8 @@
       FOLAC: FOLAC;
       VITB12: VITB12;
       VITD: VITD;
+      TOCPHA: TOCPHA;
+      VITK1: VITK1;
       WATER: WATER;
   }
 
@@ -203,6 +251,12 @@
   }
 
   export interface CHOCDF2 {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface FIBTG2 {
       label: string;
       quantity: number;
       unit: string;
@@ -262,6 +316,12 @@
       unit: string;
   }
 
+  export interface VITARAE2 {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
   export interface VITC2 {
       label: string;
       quantity: number;
@@ -310,11 +370,24 @@
       unit: string;
   }
 
+  export interface TOCPHA2 {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
+  export interface VITK12 {
+      label: string;
+      quantity: number;
+      unit: string;
+  }
+
   export interface TotalDaily {
       ENERC_KCAL: ENERCKCAL2;
       FAT: FAT2;
       FASAT: FASAT2;
       CHOCDF: CHOCDF2;
+      FIBTG: FIBTG2;
       PROCNT: PROCNT2;
       CHOLE: CHOLE2;
       NA: NA2;
@@ -324,6 +397,7 @@
       FE: FE2;
       ZN: ZN2;
       P: P2;
+      VITA_RAE: VITARAE2;
       VITC: VITC2;
       THIA: THIA2;
       RIBF: RIBF2;
@@ -332,6 +406,8 @@
       FOLDFE: FOLDFE2;
       VITB12: VITB122;
       VITD: VITD2;
+      TOCPHA: TOCPHA2;
+      VITK1: VITK12;
   }
 
   export interface ENERCKCAL3 {
@@ -364,4 +440,6 @@
       FAT_KCAL: FATKCAL;
       CHOCDF_KCAL: CHOCDFKCAL;
   }
+
+
 

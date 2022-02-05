@@ -3,7 +3,7 @@
 <div class="main-content" >
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-7" style="padding-right: 100px;">
+          <div class="col-md-7" style="padding-right: 70px;">
    <div class="content">
     <form id="contact" style="border-radius: 20px" [formGroup]="NutritionForm" >
       <h3>Get Your Meal Nutrition 🍴</h3>
@@ -30,11 +30,27 @@
       </div>
       </fieldset>
       <fieldset>
+        <h4 style="text-align: left; color: red;" > *Select type of Analysis
+        </h4>
+          <select class="form-select" formControlName="IsCooking" aria-placeholder="Please Select Your Type Analysis"  class="form-control" id = 'IsCooking' required>
+          <option value="cooking">cooking (Defult)</option>
+          <option value="logging">logging</option>
+
+        </select>
+        <div *ngIf="f['IsCooking'].touched && f['IsCooking'].invalid" class="alert alert-danger">
+          <div *ngIf="f['IsCooking'].errors && f['IsCooking'].errors['required']"> **Choose is required.</div>
+      </div>
+      </fieldset>
+      <fieldset>
         <button  type="submit" id="contact-submit" [disabled]="NutritionForm.invalid" (click)="GetData()">Analyze 📈</button>
-        <button  type="submit" id="contact-submit" >New Recipe</button>
+        <button  type="submit" id="contact-submit" (click)="NewRecipe()">New Recipe</button>
       </fieldset>
     </form>
   </div>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white; font-weight: bold;">جارى تحميل البيانات برجاء الانتظار ... </p>
+    </ngx-spinner>
+
   <table class="table table-hover table-light" style="margin-top: -90px;">
     <thead>
       <tr>
@@ -46,12 +62,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let RootObject of RootObject">
-        <th scope="row">{{RootObject.calories}}</th>
-        <!-- <td>{{RootObject.calories}}	</td>
-        <td>{{RootObject.calories}}</td>
-        <td>{{RootObject.calories}} kcal</td>
-        <td>{{RootObject.calories}} g</td> -->
+      <tr *ngFor="let item of RootObject">
+        <th scope="row">{{item.calories}}</th>
+        <td></td>
       </tr>
 
     </tbody>
@@ -72,59 +85,77 @@
           <tbody>
             <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Total Calories</th>
-              <td>{{RootObject.calories}}</td>
+              <td>{{RootObject.calories}} kcal</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Fat</th>
-              <td>10.641 g</td>
+              <td>{{RootObject.totalNutrients.FAT.quantity}} g <br> {{RootObject.totalDaily.FAT.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Saturated Fat</th>
-              <td>2 g</td>
+              <td>{{RootObject.totalNutrients.FASAT.quantity}} g <br> {{RootObject.totalDaily.FASAT.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Trans Fat -</th>
-              <td></td>
+              <td>{{RootObject.totalNutrients.FAMS.quantity}}g</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Cholesterol</th>
-              <td colspan="2">372 mg</td>
+              <td>{{RootObject.totalNutrients.CHOLE.quantity}} mg <br> {{RootObject.totalDaily.CHOLE.quantity}} % </td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Sodium</th>
-              <td colspan="2">638 mg</td>
+              <td>{{RootObject.totalNutrients.NA.quantity}} mg <br> {{RootObject.totalDaily.NA.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Total Carbohydrate</th>
-              <td colspan="2">372 mg</td>
+              <td>{{RootObject.totalNutrients.CHOCDF.quantity}}g  <br> {{RootObject.totalDaily.CHOCDF.quantity}} %</td>
             </tr>
-            <tr>
+
+            <tr *ngFor="let RootObject of RootObject" >
               <th scope="row">Dietary Fiber</th>
-              <td colspan="2">34.6 g</td>
+              <td>
+                <div *ngIf="NutritionForm.controls['IsCooking'].value === 'logging'">
+                  {{RootObject.totalNutrients.FIBTG.quantity}} g <br> {{RootObject.totalDaily.FIBTG.quantity}} %
+              </div>
+              <div *ngIf="NutritionForm.controls['IsCooking'].value === 'cooking'">
+            </div>
+            </td>
             </tr>
-            <tr>
+
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Total Sugars</th>
-              <td colspan="2">30.3 g</td>
+
+              <td>
+               <div *ngIf="NutritionForm.controls['IsCooking'].value === 'logging'">
+                {{RootObject.totalNutrients.SUGAR.quantity}} g
+               </div>
+               <div *ngIf="NutritionForm.controls['IsCooking'].value === 'cooking'">
+              </div>
+              </td>
+
             </tr>
-            <tr>
+
+
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Protein</th>
-              <td colspan="2">352 g</td>
+              <td>{{RootObject.totalNutrients.PROCNT.quantity}} g <br> {{RootObject.totalDaily.PROCNT.quantity}} %</td>
             </tr>
-            <tr>
-              <th scope="row">Vitamin</th>
-              <td colspan="2">D 0 µg</td>
+            <tr *ngFor="let RootObject of RootObject">
+              <th scope="row">Vitamin (D)</th>
+              <td>{{RootObject.totalNutrients.VITD.quantity}} µg <br> {{RootObject.totalDaily.VITD.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Calcium</th>
-              <td colspan="2">179.1 mg</td>
+              <td>{{RootObject.totalNutrients.CA.quantity}} mg <br> {{RootObject.totalDaily.CA.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Iron</th>
-              <td colspan="2">13.8 mg	</td>
+              <td>{{RootObject.totalNutrients.FE.quantity}} mg <br> {{RootObject.totalDaily.FE.quantity}} %</td>
             </tr>
-            <tr>
+            <tr *ngFor="let RootObject of RootObject">
               <th scope="row">Potassium</th>
-              <td colspan="2">2203.2 mg </td>
+              <td>{{RootObject.totalNutrients.K.quantity}} mg <br> {{RootObject.totalDaily.K.quantity}} %</td>
             </tr>
           </tbody>
           <p style="color: red; text-align: center; font-size: small;">*Percent Daily Values are based on a 2000 calorie diet </p>
