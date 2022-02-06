@@ -2,11 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RootObject } from 'src/app/Models/Test';
-// import { main } from 'src/app/Models/Main';
 import { NutritionServiceService } from '../../Services/nutrition-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NurtitionModel } from '../../Models/NutritionModelPOST';
-import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-nutrition',
