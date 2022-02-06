@@ -10,6 +10,7 @@ import { NutritionComponent } from './Components/nutrition/nutrition.component';
 import { ObjToArrayPipe } from './Shared/Pipes/obj-to-array.pipe';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { NgxSpinnerModule } from 'ngx-spinner';
+// import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     NgxSpinnerModule ,
     BrowserAnimationsModule,
+    // MatDialogModule,
     NgHttpLoaderModule.forRoot(),
   ],
   providers: [],
