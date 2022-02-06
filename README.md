@@ -5,7 +5,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Nutrition Analysis is an application designed to analyze any recipe and get a detailed nutrition data about it.
 
 ## Outsources 
-have used an API Service from EDAMAM which allows for text analysis and nutritional analysis of a recipe using A.I under theire free developer license <a href="https://developer.edamam.com"> https://developer.edamam.com
+I have used an API Service from EDAMAM which allows for text analysis and nutritional analysis of a recipe using A.I under theire free developer license <a href="https://developer.edamam.com"> https://developer.edamam.com
+
+I have used Bootstrap Framework
 
 ## Development server
 
@@ -30,3 +32,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Copyright
+
+<a href="www.linkedin.com/in/mohammed-khaled-saad-7a6032141"> © MK
+
