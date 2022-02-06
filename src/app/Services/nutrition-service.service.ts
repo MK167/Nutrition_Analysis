@@ -28,7 +28,7 @@ export class NutritionServiceService {
     );
   }
 
-  getAllData(nutrition:any, inger:any) : Observable<RootObject[]> {
+  getAllData(nutrition:any, inger:any[]) : Observable<RootObject[]> {
 
     return this.httpClient.get<RootObject[]>(this.apiUrlTable + '&' + 'nutrition-type=' + nutrition + '&' + 'ingr=' + inger )
     .pipe(

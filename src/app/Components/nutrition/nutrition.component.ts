@@ -5,7 +5,8 @@ import { RootObject } from 'src/app/Models/Test';
 // import { main } from 'src/app/Models/Main';
 import { NutritionServiceService } from '../../Services/nutrition-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { Ingredient } from './../../Models/Ingredient Structure';
+declare function InputData(): any;
 @Component({
   selector: 'app-nutrition',
   templateUrl: './nutrition.component.html',
@@ -17,6 +18,8 @@ export class NutritionComponent implements OnInit {
   NutritionForm! : FormGroup;
   invalidData! : boolean;
   loading = false;
+  IngerValue: any [] = [];
+  Ingredient: Ingredient[] = [];
 
   constructor(public NutritionServiceService:NutritionServiceService, fb : FormBuilder, private router: Router, private SpinnerService: NgxSpinnerService) {
     this.NutritionForm = fb.group({
@@ -29,7 +32,8 @@ export class NutritionComponent implements OnInit {
     });
    }
    get Inger(){
-    return this.NutritionForm.get('Inger')?.value;
+    // return this.NutritionForm.get('Inger')?.value.split(/\n|\r/);
+    return this.IngerValue = this.NutritionForm.get('Inger')?.value.split(/\n|\r/);
   }
    get IsCooking(){
     return this.NutritionForm.get('IsCooking')?.value;
@@ -40,8 +44,16 @@ export class NutritionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.GetData();
+    // InputData();
+    // this.listedIngredients();
+    // console.log(this.listedIngredients());
   }
+
+  //  listedIngredients() {
+  //   const result: Array<string> = new Array<string>();
+  //   this.RootObject.forEach((e) => result.push(e.calories));
+  //   return result.join("; ");
+  // }
 
   GetData(){
     if (this.NutritionForm.controls != null){
