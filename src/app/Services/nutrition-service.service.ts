@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { RootObject } from '../Models/Test';
+import { RootObject } from '../Models/NurtirationGET';
 
 
 const httpOptions = {
