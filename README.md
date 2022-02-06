@@ -35,5 +35,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Copyright
 
-<a href="www.linkedin.com/in/mohammed-khaled-saad-7a6032141"> © MK
+<a href="https://www.linkedin.com/in/mohammed-khaled-saad-7a6032141"> © MK
 
