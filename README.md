@@ -1,6 +1,11 @@
 # Nutrition Analysis
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
+
+# About Nutrition Analysis
+Nutrition Analysis is an application designed to analyze any recipe and get a detailed nutrition data about it.
+
+# Outsources 
+    <p style="text-align: center;">I have used an API Service from EDAMAM which allows for text analysis and nutritional analysis of a recipe using A.I under theire free developer license <a href="https://developer.edamam.com"> https://developer.edamam.com </a></p>
 
 ## Development server
 
