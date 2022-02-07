@@ -3,6 +3,7 @@ import { Observable, catchError, throwError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RootObject } from '../Models/NurtirationGET';
+import { RootObjectIngr } from '../Models/IngredientStructure';
 
 
 const httpOptions = {
@@ -32,6 +33,24 @@ export class NutritionServiceService {
   getAllData(nutritionType:any, inger:any) : Observable<RootObject[]> {
 
     return this.httpClient.get<RootObject[]>(this.baseUrl+ this.apiUrlGET + '&' + 'nutrition-type=' + nutritionType + '&' + 'ingr=' + inger )
+    .pipe(
+      map((response: RootObject[]) => {
+        return response as RootObject[];
+      }),
+      catchError((err, caught) => {
+        console.error(err);
+        throw err;
+      }
+      )
+    )
+}
+////////////////////////////////////////////////
+//**************** GET Data ingredients *******
+///////////////////////////////////////////////
+
+  getAllDataIngr(inger:any) : Observable<RootObject[]> {
+
+    return this.httpClient.get<RootObject[]>(this.baseUrl+ this.apiUrlGET + '&' +  'ingr=' + inger )
     .pipe(
       map((response: RootObject[]) => {
         return response as RootObject[];

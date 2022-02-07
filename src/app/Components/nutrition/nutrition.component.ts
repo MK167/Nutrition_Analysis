@@ -6,6 +6,7 @@ import { RootObject } from 'src/app/Models/NurtirationGET';
 import { NutritionServiceService } from '../../Services/nutrition-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NurtitionModel } from '../../Models/NutritionModelPOST';
+import { RootObjectIngr } from '../../Models/IngredientStructure';
 
 @Component({
   selector: 'app-nutrition',
@@ -13,11 +14,15 @@ import { NurtitionModel } from '../../Models/NutritionModelPOST';
   styleUrls: ['./nutrition.component.scss']
 })
 export class NutritionComponent implements OnInit {
+
+  //RootObject To Access About NurtirationGET Model
+   RootObjectPost: RootObject[] = [];
+
+  //RootObjectIngr To Access About IngredientStructure Model
+  RootObjectIngr : RootObjectIngr[] =[] ;
+
+
   // Define and Declare Variable
-
-  RootObject: RootObject[] = [];
-  RootObjectPost: RootObject[] = [];
-
   NutritionFormPOST! : FormGroup;
   invalidData! : boolean;
   loading = false;
@@ -42,6 +47,7 @@ export class NutritionComponent implements OnInit {
       Inger : [this.ingr, [
         Validators.required,Validators.minLength(3)
       ]],
+      IsCooking:['',Validators.required]
     });
     }
 
@@ -50,9 +56,15 @@ export class NutritionComponent implements OnInit {
     return this.NutritionFormPOST.controls;
   }
 
+  get IsCooking(){
+    return this.NutritionFormPOST.get('IsCooking')?.value;
+  }
+
   ngOnInit(): void {
 
   }
+
+
 
   // Split Method built to split enter text in Textarea and pass by value array splited in GET Method
 Split(){
@@ -67,9 +79,9 @@ Split(){
      if (this.NutritionFormPOST.controls != null){
       this.SpinnerService.show();
       // GET Method Calling
-      this.NutritionServiceService.getAllData('coocking',(this.arr[j][i])).subscribe((data:any) => {
+      this.NutritionServiceService.getAllData(this.IsCooking,(this.arr[j][i])).subscribe((data:any) => {
       this.loading = true;
-      this.RootObject = [data];
+      this.RootObjectPost = [data];
       this.SpinnerService.hide();
 
       console.log("ARRAY" ,this.arr[j][i]);
@@ -102,7 +114,6 @@ Split(){
         this.NutritionServiceService.CreateData(NewInter)
         .subscribe((data:any) => {
             this.RootObjectPost = [data];
-            // console.log("ttt",data);
               this.SpinnerService.hide();
             },
               error => {
@@ -110,6 +121,13 @@ Split(){
                 this.SpinnerService.hide();
                 console.log(error);
               });
+      // GET Method to Get Spacific Data in Ingreadiant List another solution using IngredientStructure Model
+        // this.NutritionServiceService.getAllDataIngr(this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/)).subscribe((data:any) =>
+        // {
+        // this.loading = true;
+        // this.RootObjectIngr = [data];
+        // this.SpinnerService.hide();
+        // });
     }
     else{
      let NewInter = {
@@ -126,4 +144,5 @@ NewRecipe(){
       this.router.navigate([currentUrl]);
   });
 }
+
 }
