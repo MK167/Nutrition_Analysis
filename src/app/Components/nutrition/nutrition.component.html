@@ -2,6 +2,7 @@
 <div class="main-content" >
   <div class="container-fluid">
   <div class="row">
+    <!-- Get Your Meal Nutrition Form -->
   <div class="col-sm-8 p-3">
    <div>
     <form id="contact" style="border-radius: 20px" [formGroup]="NutritionFormPOST" (ngSubmit)="saveData()">
@@ -35,11 +36,13 @@
     </form>
   </div>
 
+  <!-- Loader of Get Data -->
   <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
     <p style="color: white; font-weight: bold;">جارى تحميل البيانات برجاء الانتظار ... </p>
     </ngx-spinner>
 
-<div *ngIf="this.details.length > 0  ">
+    <!-- Table of Add summary breakdown for entered ingredients in a list -->
+  <div *ngIf="this.details.length > 0  ">
   <table class="table table-hover table-light" style="margin-top: -90px;">
     <thead>
       <tr>
@@ -57,9 +60,10 @@
 
     </tbody>
   </table>
-</div>
+  </div>
   </div>
 
+  <!-- Nutrition Facts -->
   <div class="col-md-4 content p-3">
     <form id="contact" style="border-radius: 15px">
       <h3 style="text-align: center; border-bottom: 3.5px solid black;">Nutrition Facts &#9829;</h3>
@@ -136,7 +140,7 @@
           <p style="color: red; text-align: center; font-size: small;">*Percent Daily Values are based on a 2000 calorie diet </p>
         </table>
     </form>
-            </div>
+  </div>
   </div>
   </div>
 </div>

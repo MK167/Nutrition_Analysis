@@ -13,7 +13,6 @@ import { NurtitionModel } from '../../Models/NutritionModelPOST';
   styleUrls: ['./nutrition.component.scss']
 })
 export class NutritionComponent implements OnInit {
-
   RootObject: RootObject[] = [];
   RootObjectPost: RootObject[] = [];
 
@@ -59,9 +58,11 @@ export class NutritionComponent implements OnInit {
 Split(){
   var x = this.NutritionFormPOST.get('Inger')?.value.toString().replace(/^,+|,/g, '');
     this.arr = [x.split(/[\n]+/)];
-    // console.log("arr1",this.arr);
-    for(let j = 0 ;j < this.arr?.length/2; j++ )
-    for(let i = 0 ;i < this.arr[j]?.length/2; i++ )
+    console.log("arr1",this.arr);
+    for(let j = 0 ;j < this.arr?.length; j++ )
+
+    {
+    for(let i = 0 ;i < this.arr[j]?.length; i++ )
     {
 
      if (this.NutritionFormPOST.controls != null){
@@ -70,8 +71,10 @@ Split(){
       this.loading = true;
       this.RootObject = [data];
       this.SpinnerService.hide();
-      this.details.push((this.arr[j][i])+" "+data.calories+" "+data.totalWeight);
 
+      console.log("ARRAY" ,this.arr[j][i]);
+      this.details.push((this.arr[j][i])+" "+data.calories+" "+data.totalWeight);
+      console.log("Details" ,this.details);
     });
   }
   else {
@@ -81,6 +84,7 @@ Split(){
     invalidData : true,
   });
   }
+}
 }
 
 }
