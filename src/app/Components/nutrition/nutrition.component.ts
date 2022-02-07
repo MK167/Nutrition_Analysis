@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RootObject } from 'src/app/Models/NurtirationGET';
@@ -15,19 +15,21 @@ import { NurtitionModel } from '../../Models/NutritionModelPOST';
 export class NutritionComponent implements OnInit {
 
   RootObject: RootObject[] = [];
-  NutritionForm! : FormGroup;
+  RootObjectPost: RootObject[] = [];
+
   NutritionFormPOST! : FormGroup;
   invalidData! : boolean;
+
   loading = false;
 
+  arr: Array<string>= [];
+  details: Array<string>= [];
   NurtitionModel!: NurtitionModel;
-  title!: string;
-  prep!: string;
-  yield!: string;
+
   ingr!: string[];
 
-  constructor(public NutritionServiceService: NutritionServiceService,
-     fb : FormBuilder, private router: Router, private SpinnerService: NgxSpinnerService)
+  constructor(@Inject(FormBuilder) fb: FormBuilder, public NutritionServiceService: NutritionServiceService,
+  private router: Router, private SpinnerService: NgxSpinnerService)
     {
       const data = this.NurtitionModel;
       if (data == null) {
@@ -45,48 +47,47 @@ export class NutritionComponent implements OnInit {
     }
 
 
-  // get Inger(){
-  //   return this.NutritionFormPOST.get('Inger')?.value.split("/\n|\r/|','");
-  // }
-
-  // get FormData(){
-  //   return this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/), this.NutritionFormPOST.get('yield')?.value,
-  //    this.NutritionFormPOST.get('prep')?.value, this.NutritionFormPOST.get('title')?.value;
-  // }
-
-  // get IsCooking(){
-  //   return this.NutritionForm.get('IsCooking')?.value;
-  // }
-
   get f()
   {
     return this.NutritionFormPOST.controls;
   }
 
   ngOnInit(): void {
-        this.Split();
-  }
-Split(){
-  // let str = this.NutritionFormPOST.get('Inger')?.value.toString().split(' ', 3);
-  // console.log(str);
-  var t = this.NutritionFormPOST.get('Inger')?.value.toString().split(/[\s, ]+/);
-  for (let i = 0; i <= t.length; i++){
-  var Qty  =    t[i];
-  console.log("QTY",Qty);
 
+  }
+
+Split(){
+  var x = this.NutritionFormPOST.get('Inger')?.value.toString().replace(/^,+|,/g, '');
+    this.arr = [x.split(/[\n]+/)];
+    // console.log("arr1",this.arr);
+    for(let j = 0 ;j < this.arr?.length/2; j++ )
+    for(let i = 0 ;i < this.arr[j]?.length/2; i++ )
+    {
+
+     if (this.NutritionFormPOST.controls != null){
+      this.SpinnerService.show();
+      this.NutritionServiceService.getAllData('coocking',(this.arr[j][i])).subscribe((data:any) => {
+      this.loading = true;
+      this.RootObject = [data];
+      this.SpinnerService.hide();
+      this.details.push((this.arr[j][i])+" "+data.calories+" "+data.totalWeight);
+
+    });
+  }
+  else {
+    this.loading = false
+    this.SpinnerService.hide();
+    this.NutritionFormPOST.setErrors({
+    invalidData : true,
+  });
+  }
 }
-console.log(t);
-console.log("QTY",Qty);
-// console.log("Unit",Unit);
-// console.log("Food",Food);
+
 }
 
   saveData(): void {
-        // console.log(this.NutritionFormPOST.value);
-  // let str = this.NutritionFormPOST.get('Inger')?.value.toString().split(' ', 3);
-          // console.log(str);
 
-          this.Split();
+    this.Split();
     if (this.NurtitionModel == null) {
         let NewInter = {
          ingr : this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/)
@@ -95,8 +96,8 @@ console.log("QTY",Qty);
         this.loading = true;
         this.NutritionServiceService.CreateData(NewInter)
         .subscribe((data:any) => {
-            this.RootObject = [data];
-              // console.log(this.NutritionFormPOST.value);
+            this.RootObjectPost = [data];
+            // console.log("ttt",data);
               this.SpinnerService.hide();
             },
               error => {
@@ -110,31 +111,8 @@ console.log("QTY",Qty);
       ingr : this.NutritionFormPOST.get('Inger')?.value
      };
 
-    //  console.log(NewInter);
     }
   }
-
-
-
-//   GetData(){
-//     if (this.NutritionForm.controls != null){
-//       this.SpinnerService.show();
-//       this.NutritionServiceService.getAllData(this.IsCooking,this.Inger).subscribe((data:any) => {
-//         this.loading = true;
-//         this.RootObject = [data];
-//         this.SpinnerService.hide();
-//         console.log(data);
-//       });
-//     }
-//     else {
-//       this.loading = false
-//       this.SpinnerService.hide();
-//       this.NutritionForm.setErrors({
-//       invalidData : true,
-//     });
-//     }
-// }
-
 
 NewRecipe(){
   let currentUrl = this.router.url;
