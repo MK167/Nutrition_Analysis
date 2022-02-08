@@ -75,6 +75,7 @@ Split(){
     // console.log("arr = "+this.arr[0].length+"= ",this.arr);
 
     for(let i = 0 ;i < this.arr[0]?.length; i++ )
+
     {
 
      if (this.NutritionFormPOST.controls != null){
@@ -90,7 +91,7 @@ Split(){
       this.SpinnerService.hide();
       // PUSH Data in Summary Table
       this.details[i]=((this.arr[0][i])+" "+data.calories+" "+data.totalWeight);
-      // console.log("Details" ,this.details);
+
     });
   }
   else {
