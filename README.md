@@ -6,7 +6,7 @@ Nutrition Analysis is an application designed to analyze any recipe and get a de
 
 # Project Image 
 
-![ScreenShot](src/assets/1.png)
+![ScreenShot](./src/assets/1.png)
 
 ## Outsources 
 I have used an API Service from EDAMAM which allows for text analysis and nutritional analysis of a recipe using A.I under theire free developer license <a href="https://developer.edamam.com"> https://developer.edamam.com
