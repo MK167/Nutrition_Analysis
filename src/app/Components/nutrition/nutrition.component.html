@@ -56,7 +56,6 @@
 
     <!-- Table of Add summary breakdown for entered ingredients in a list -->
   <div *ngIf="this.invalid">
-
   <div *ngIf="this.details.length > 0  ">
   <table class="table table-hover table-light" style="margin-top: -90px;">
     <thead>
@@ -76,6 +75,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   </div>
   </div>
 
@@ -179,14 +179,12 @@
                 {{RootObjectPost.totalNutrients.SUGAR.quantity | number : '1.2-2'}} g
                 </div>
                </div>
+
                <div *ngIf="NutritionFormPOST.controls['IsCooking'].value === 'cooking'">
                 <div *ngIf="RootObjectPost.totalNutrients.SUGAR != undefined">
                   {{RootObjectPost.totalNutrients.SUGAR.quantity | number : '1.2-2'}} g
                 </div>
-                {{RootObjectPost.totalNutrients.SUGAR.quantity | number : '1.2-2'}} g
                </div>
-               <div *ngIf="NutritionFormPOST.controls['IsCooking'].value === 'cooking'">
-              </div>
               </td>
 
             </tr>
@@ -219,7 +217,6 @@
   </div>
 </div>
 </div>
-
 <!-- Footer & Copyright -->
 <footer class="page-footer font-small blue">
 
