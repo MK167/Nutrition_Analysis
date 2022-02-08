@@ -6,6 +6,7 @@ Nutrition Analysis is an application designed to analyze any recipe and get a de
 
 ## Project Image 
 
+<img src "./src/assets/1.png" width = "50">
 ![ScreenShot](./src/assets/1.png?raw=true)
 ![ScreenShot](./src/assets/2.png?raw=true)
 ![ScreenShot](./src/assets/3.png?raw=true)
