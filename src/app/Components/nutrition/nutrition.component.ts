@@ -116,16 +116,34 @@ this.invalid = true;
         };
         this.SpinnerService.show();
         this.loading = true;
-        this.NutritionServiceService.CreateData(NewInter)
-        .subscribe((data:any) => {
-            this.RootObjectPost = [data];
-              this.SpinnerService.hide();
-            },
-              error => {
-                this.loading = false
+
+        if (this.NutritionFormPOST.get('IsCooking')?.value === "cooking"){
+          this.NutritionServiceService.CreateData(NewInter)
+          .subscribe((data:any) => {
+              this.RootObjectPost = [data];
                 this.SpinnerService.hide();
-                console.log(error);
-              });
+              },
+                error => {
+                  this.loading = false
+                  this.SpinnerService.hide();
+                  console.log(error);
+                });
+        }
+
+        else{
+          this.NutritionServiceService.getAllData(this.IsCooking, this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/))
+          .subscribe((data:any) => {
+            this.RootObjectPost = [data];
+            this.SpinnerService.hide();
+          },
+            error => {
+              this.loading = false
+              this.SpinnerService.hide();
+              console.log(error);
+            });
+
+        }
+
       // GET Method to Get Spacific Data in Ingreadiant List another solution using IngredientStructure Model
         // this.NutritionServiceService.getAllDataIngr(this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/)).subscribe((data:any) =>
         // {
