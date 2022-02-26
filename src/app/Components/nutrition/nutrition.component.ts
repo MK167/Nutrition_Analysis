@@ -21,7 +21,6 @@ export class NutritionComponent implements OnInit {
   //RootObjectIngr To Access About IngredientStructure Model
   RootObjectIngr : RootObjectIngr[] =[] ;
 
-
   // Define and Declare Variable
   NutritionFormPOST! : FormGroup;
   invalidData! : boolean;
@@ -33,7 +32,8 @@ export class NutritionComponent implements OnInit {
   invalid! : boolean;
 
   // CONSTRUCTOR
-  constructor(@Inject(FormBuilder) fb: FormBuilder, public NutritionServiceService: NutritionServiceService,
+  constructor(@Inject(FormBuilder) fb: FormBuilder,
+  public NutritionServiceService: NutritionServiceService,
   private router: Router, private SpinnerService: NgxSpinnerService)
     {
       const data = this.NurtitionModel;
@@ -73,15 +73,11 @@ Split(){
     // console.log("x",x);
     this.arr = [x.split(/[\n]+/)];
     // console.log("arr = "+this.arr[0].length+"= ",this.arr);
-
     for(let i = 0 ;i < this.arr[0]?.length; i++ )
-
     {
-
      if (this.NutritionFormPOST.controls != null){
       this.SpinnerService.show();
       // GET Method Calling
-
       // console.log("arr"+i,this.arr[0][i]);
       this.NutritionServiceService.getAllData(this.IsCooking,(this.arr[0][i])).subscribe((data:any) => {
       // console.log("ARRAY" +i,this.arr[0][i]);
@@ -91,7 +87,6 @@ Split(){
       this.SpinnerService.hide();
       // PUSH Data in Summary Table
       this.details[i]=((this.arr[0][i])+" "+data.calories+" "+data.totalWeight);
-
     });
   }
   else {
@@ -102,9 +97,7 @@ Split(){
   });
   }
 }
-
 this.invalid = true;
-
 }
 
 // SaveData Method built in Analyze all ingredient list Entered in TextArea
@@ -129,7 +122,6 @@ this.invalid = true;
                   console.log(error);
                 });
         }
-
         else{
           this.NutritionServiceService.getAllData(this.IsCooking, this.NutritionFormPOST.get('Inger')?.value.split(/\n|\r/))
           .subscribe((data:any) => {

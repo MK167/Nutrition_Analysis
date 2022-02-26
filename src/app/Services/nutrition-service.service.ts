@@ -9,29 +9,25 @@ import { RootObjectIngr } from '../Models/IngredientStructure';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
 export class NutritionServiceService {
 
   readonly baseUrl = environment.baseUrl;
+  readonly appID   = environment.app_id;
+  readonly appKey  = environment.app_key;
 
-  app_id: string = 'f09217e9';
-  app_key: string = '1ab63e891ae33fb2c91ae9ce06d73ea0';
+  apiUrlGET: string = `nutrition-data?app_id=${this.appID}&app_key=${this.appKey}`;
 
-  apiUrlGET: string = `nutrition-data?app_id=${this.app_id}&app_key=${this.app_key}`;
-  apiUrlPOST: string = `nutrition-details?app_id=${this.app_id}&app_key=${this.app_key}`;
+  apiUrlPOST: string = `nutrition-details?app_id=${this.appID}&app_key=${this.appKey}`;
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) { }
-
-////////////////////////////////////////////////
-//****************  GET  **********************
-///////////////////////////////////////////////
-
+  //****************  GET  **********************
   getAllData(nutritionType:any, inger:any) : Observable<RootObject[]> {
-
     return this.httpClient.get<RootObject[]>(this.baseUrl+ this.apiUrlGET + '&' + 'nutrition-type=' + nutritionType + '&' + 'ingr=' + inger )
     .pipe(
       map((response: RootObject[]) => {
@@ -43,11 +39,8 @@ export class NutritionServiceService {
       }
       )
     )
-}
-////////////////////////////////////////////////
+  }
 //**************** GET Data ingredients *******
-///////////////////////////////////////////////
-
   getAllDataIngr(inger:any) : Observable<RootObject[]> {
 
     return this.httpClient.get<RootObject[]>(this.baseUrl+ this.apiUrlGET + '&' +  'ingr=' + inger )
@@ -62,19 +55,13 @@ export class NutritionServiceService {
       )
     )
 }
-////////////////////////////////////////////////
 //****************  POST **********************
-///////////////////////////////////////////////
-
 CreateData(data: any): Observable<any> {
   return this.httpClient.post(this.baseUrl + this.apiUrlPOST , JSON.stringify(data), httpOptions ).pipe(
     catchError(this.handleError)
   );
 }
-////////////////////////////////////////////////
 //****************  HandleError ***************
-///////////////////////////////////////////////
-
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
@@ -86,4 +73,7 @@ CreateData(data: any): Observable<any> {
     return throwError(
       'Something bad happened; please try again later.');
   };
+
+  //Interceptor
+
 }
